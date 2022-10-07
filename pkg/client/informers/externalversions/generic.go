@@ -26,6 +26,7 @@ import (
 
 	v1alpha1 "github.com/kcp-dev/kcp/pkg/apis/apiresource/v1alpha1"
 	apisv1alpha1 "github.com/kcp-dev/kcp/pkg/apis/apis/v1alpha1"
+	v1 "github.com/kcp-dev/kcp/pkg/apis/redhat/v1"
 	schedulingv1alpha1 "github.com/kcp-dev/kcp/pkg/apis/scheduling/v1alpha1"
 	tenancyv1alpha1 "github.com/kcp-dev/kcp/pkg/apis/tenancy/v1alpha1"
 	v1beta1 "github.com/kcp-dev/kcp/pkg/apis/tenancy/v1beta1"
@@ -77,6 +78,10 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Scheduling().V1alpha1().Locations().Informer()}, nil
 	case schedulingv1alpha1.SchemeGroupVersion.WithResource("placements"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Scheduling().V1alpha1().Placements().Informer()}, nil
+
+		// Group=stable.redhat.com, Version=v1
+	case v1.SchemeGroupVersion.WithResource("authzconfigs"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Stable().V1().AuthzConfigs().Informer()}, nil
 
 		// Group=tenancy.kcp.dev, Version=v1alpha1
 	case tenancyv1alpha1.SchemeGroupVersion.WithResource("clusterworkspaces"):

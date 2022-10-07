@@ -1,0 +1,42 @@
+apiVersion: apis.kcp.dev/v1alpha1
+kind: APIResourceSchema
+metadata:
+  creationTimestamp: null
+  name: v221007-b441d667.authzconfigs.stable.redhat.com
+spec:
+  group: stable.redhat.com
+  names:
+    kind: AuthzConfig
+    listKind: AuthzConfigList
+    plural: authzconfigs
+    singular: authzconfig
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            orgId:
+              type: string
+          required:
+          - orgId
+          type: object
+      required:
+      - spec
+      type: object
+    served: true
+    storage: true
+    subresources: {}

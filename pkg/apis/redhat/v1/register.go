@@ -1,11 +1,11 @@
 package v1
 
 import (
-	"github.com/kcp-dev/kcp/pkg/apis/redhat"
-
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/kcp-dev/kcp/pkg/apis/redhat"
 )
 
 // GroupVersion is the identifier for the API which includes
@@ -18,6 +18,11 @@ var SchemeGroupVersion = schema.GroupVersion{
 func Resource(resource string) schema.GroupResource {
 	return SchemeGroupVersion.WithResource(resource).GroupResource()
 }
+
+var (
+	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
+	AddToScheme   = SchemeBuilder.AddToScheme
+)
 
 // addKnownTypes adds our types to the API scheme by registering
 // MyResource and MyResourceList

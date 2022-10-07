@@ -1,0 +1,9 @@
+apiVersion: apis.kcp.dev/v1alpha1
+kind: APIExport
+metadata:
+  creationTimestamp: null
+  name: stable.redhat.com
+spec:
+  latestResourceSchemas:
+  - v221007-b441d667.authzconfigs.stable.redhat.com
+status: {}

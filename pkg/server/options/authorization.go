@@ -103,7 +103,7 @@ func (s *Authorization) ApplyTo(config *genericapiserver.Config, informer kcpkub
 	// kcp authorizers
 	bootstrapAuth, bootstrapRules := authorization.NewBootstrapPolicyAuthorizer(informer)
 	localAuth, localResolver := authorization.NewLocalAuthorizer(informer)
-	resourceAuth := authorization.NewResourceControlledAuthorizer(informer)
+	resourceAuth := authorization.NewResourceControlledAuthorizer(kcpinformer)
 	apiBindingAuth, err := authorization.NewMaximalPermissionPolicyAuthorizer(informer, kcpinformer,
 		union.New(resourceAuth, bootstrapAuth, localAuth),
 	)

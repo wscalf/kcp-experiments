@@ -30,6 +30,7 @@ import (
 
 	apiresourcev1alpha1 "github.com/kcp-dev/kcp/pkg/client/clientset/versioned/typed/apiresource/v1alpha1"
 	apisv1alpha1 "github.com/kcp-dev/kcp/pkg/client/clientset/versioned/typed/apis/v1alpha1"
+	stablev1 "github.com/kcp-dev/kcp/pkg/client/clientset/versioned/typed/redhat/v1"
 	schedulingv1alpha1 "github.com/kcp-dev/kcp/pkg/client/clientset/versioned/typed/scheduling/v1alpha1"
 	tenancyv1alpha1 "github.com/kcp-dev/kcp/pkg/client/clientset/versioned/typed/tenancy/v1alpha1"
 	tenancyv1beta1 "github.com/kcp-dev/kcp/pkg/client/clientset/versioned/typed/tenancy/v1beta1"
@@ -67,6 +68,7 @@ type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	ApiresourceV1alpha1() apiresourcev1alpha1.ApiresourceV1alpha1Interface
 	ApisV1alpha1() apisv1alpha1.ApisV1alpha1Interface
+	StableV1() stablev1.StableV1Interface
 	SchedulingV1alpha1() schedulingv1alpha1.SchedulingV1alpha1Interface
 	TenancyV1alpha1() tenancyv1alpha1.TenancyV1alpha1Interface
 	TenancyV1beta1() tenancyv1beta1.TenancyV1beta1Interface
@@ -86,6 +88,7 @@ type scopedClientset struct {
 	*discovery.DiscoveryClient
 	apiresourceV1alpha1 *apiresourcev1alpha1.ApiresourceV1alpha1Client
 	apisV1alpha1        *apisv1alpha1.ApisV1alpha1Client
+	stableV1            *stablev1.StableV1Client
 	schedulingV1alpha1  *schedulingv1alpha1.SchedulingV1alpha1Client
 	tenancyV1alpha1     *tenancyv1alpha1.TenancyV1alpha1Client
 	tenancyV1beta1      *tenancyv1beta1.TenancyV1beta1Client
@@ -100,6 +103,11 @@ func (c *Clientset) ApiresourceV1alpha1() apiresourcev1alpha1.ApiresourceV1alpha
 // ApisV1alpha1 retrieves the ApisV1alpha1Client
 func (c *Clientset) ApisV1alpha1() apisv1alpha1.ApisV1alpha1Interface {
 	return apisv1alpha1.NewWithCluster(c.apisV1alpha1.RESTClient(), c.cluster)
+}
+
+// StableV1 retrieves the StableV1Client
+func (c *Clientset) StableV1() stablev1.StableV1Interface {
+	return stablev1.NewWithCluster(c.stableV1.RESTClient(), c.cluster)
 }
 
 // SchedulingV1alpha1 retrieves the SchedulingV1alpha1Client
@@ -174,6 +182,10 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 	if err != nil {
 		return nil, err
 	}
+	cs.stableV1, err = stablev1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	if err != nil {
+		return nil, err
+	}
 	cs.schedulingV1alpha1, err = schedulingv1alpha1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
@@ -213,6 +225,7 @@ func New(c rest.Interface) *Clientset {
 	var cs scopedClientset
 	cs.apiresourceV1alpha1 = apiresourcev1alpha1.New(c)
 	cs.apisV1alpha1 = apisv1alpha1.New(c)
+	cs.stableV1 = stablev1.New(c)
 	cs.schedulingV1alpha1 = schedulingv1alpha1.New(c)
 	cs.tenancyV1alpha1 = tenancyv1alpha1.New(c)
 	cs.tenancyV1beta1 = tenancyv1beta1.New(c)

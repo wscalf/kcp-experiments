@@ -54,6 +54,7 @@ func Bootstrap(ctx context.Context, crdClient apiextensionsclient.Interface, dis
 		{Group: apis.GroupName, Resource: "apiexports"},
 		{Group: apis.GroupName, Resource: "apibindings"},
 		{Group: apis.GroupName, Resource: "apiresourceschemas"},
+		{Group: apis.GroupName, Resource: "entitlements"},
 	}
 
 	if err := wait.PollImmediateInfiniteWithContext(ctx, time.Second, func(ctx context.Context) (bool, error) {

@@ -41,6 +41,10 @@ func (c *FakeApisV1alpha1) APIResourceSchemas() v1alpha1.APIResourceSchemaInterf
 	return &FakeAPIResourceSchemas{c}
 }
 
+func (c *FakeApisV1alpha1) Entitlements() v1alpha1.EntitlementInterface {
+	return &FakeEntitlements{c}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeApisV1alpha1) RESTClient() rest.Interface {

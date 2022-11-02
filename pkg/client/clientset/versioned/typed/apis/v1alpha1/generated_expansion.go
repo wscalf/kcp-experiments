@@ -23,3 +23,5 @@ type APIBindingExpansion interface{}
 type APIExportExpansion interface{}
 
 type APIResourceSchemaExpansion interface{}
+
+type EntitlementExpansion interface{}

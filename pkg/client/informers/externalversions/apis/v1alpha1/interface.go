@@ -30,6 +30,8 @@ type Interface interface {
 	APIExports() APIExportInformer
 	// APIResourceSchemas returns a APIResourceSchemaInformer.
 	APIResourceSchemas() APIResourceSchemaInformer
+	// Entitlements returns a EntitlementInformer.
+	Entitlements() EntitlementInformer
 }
 
 type version struct {
@@ -56,4 +58,9 @@ func (v *version) APIExports() APIExportInformer {
 // APIResourceSchemas returns a APIResourceSchemaInformer.
 func (v *version) APIResourceSchemas() APIResourceSchemaInformer {
 	return &aPIResourceSchemaInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
+// Entitlements returns a EntitlementInformer.
+func (v *version) Entitlements() EntitlementInformer {
+	return &entitlementInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }

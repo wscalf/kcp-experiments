@@ -29,3 +29,7 @@ type APIExportListerExpansion interface{}
 // APIResourceSchemaListerExpansion allows custom methods to be added to
 // APIResourceSchemaLister.
 type APIResourceSchemaListerExpansion interface{}
+
+// EntitlementListerExpansion allows custom methods to be added to
+// EntitlementLister.
+type EntitlementListerExpansion interface{}

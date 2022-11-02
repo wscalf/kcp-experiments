@@ -34,6 +34,7 @@ type ApisV1alpha1Interface interface {
 	APIBindingsGetter
 	APIExportsGetter
 	APIResourceSchemasGetter
+	EntitlementsGetter
 }
 
 // ApisV1alpha1Client is used to interact with features provided by the apis.kcp.dev group.
@@ -52,6 +53,10 @@ func (c *ApisV1alpha1Client) APIExports() APIExportInterface {
 
 func (c *ApisV1alpha1Client) APIResourceSchemas() APIResourceSchemaInterface {
 	return newAPIResourceSchemas(c)
+}
+
+func (c *ApisV1alpha1Client) Entitlements() EntitlementInterface {
+	return newEntitlements(c)
 }
 
 // NewForConfig creates a new ApisV1alpha1Client for the given config.
